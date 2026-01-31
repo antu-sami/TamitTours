@@ -1,0 +1,9 @@
+# Create output folder
+New-Item -ItemType Directory -Force -Path "images/gallery/webp"
+
+# Loop over HEIC files
+Get-ChildItem "images/gallery" -Filter *.heic | ForEach-Object {
+    $input = $_.FullName
+    $output = "images/gallery/webp/$($_.BaseName).webp"
+    magick "$input" -resize 1200x -quality 80 "$output"
+}
